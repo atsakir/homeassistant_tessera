@@ -247,7 +247,7 @@
   "chip": "ESP32",
   "columns": 2,
   "dimmable": true,
-  "dpi": 165,
+  "dpi": 146,
   "features": [],
   "firmware": "0.58.0",
   "fonts": {
@@ -273,8 +273,8 @@
     "columns": 2,
     "height": 320,
     "max": [
-     4,
-     5
+     5,
+     6
     ],
     "min": [
      1,
@@ -288,7 +288,7 @@
     "columns": 1,
     "height": 480,
     "max": [
-     2,
+     3,
      8
     ],
     "min": [
@@ -308,7 +308,7 @@
    "margin": 9,
    "page_bar": 37,
    "tile_pad": 8,
-   "top": 39
+   "top": 38
   },
   "tier": "lite",
   "wide_slots": true,
@@ -3109,7 +3109,7 @@
   "chip": "ESP32",
   "columns": 2,
   "dimmable": true,
-  "dpi": 165,
+  "dpi": 146,
   "features": [],
   "firmware": "0.58.0",
   "fonts": {
@@ -3135,8 +3135,8 @@
     "columns": 2,
     "height": 320,
     "max": [
-     4,
-     5
+     5,
+     6
     ],
     "min": [
      1,
@@ -3150,7 +3150,7 @@
     "columns": 1,
     "height": 480,
     "max": [
-     2,
+     3,
      8
     ],
     "min": [
@@ -3170,7 +3170,7 @@
    "margin": 9,
    "page_bar": 37,
    "tile_pad": 8,
-   "top": 39
+   "top": 38
   },
   "tier": "lite",
   "wide_slots": true,
@@ -4730,7 +4730,7 @@
   "chip": "ESP32",
   "columns": 2,
   "dimmable": true,
-  "dpi": 165,
+  "dpi": 146,
   "features": [],
   "firmware": "0.58.0",
   "fonts": {
@@ -4756,8 +4756,8 @@
     "columns": 2,
     "height": 320,
     "max": [
-     4,
-     5
+     5,
+     6
     ],
     "min": [
      1,
@@ -4771,7 +4771,7 @@
     "columns": 1,
     "height": 480,
     "max": [
-     2,
+     3,
      8
     ],
     "min": [
@@ -4791,7 +4791,7 @@
    "margin": 9,
    "page_bar": 37,
    "tile_pad": 8,
-   "top": 39
+   "top": 38
   },
   "tier": "lite",
   "wide_slots": true,

@@ -105,7 +105,9 @@ def catalog_of(board, values, lying):
             raise SystemExit(f'boards.yaml: {board} lists the setting {key}, which no entity of its files is named')
     return {'order': list(profiles.CATALOG).index(board), 'name': entry['name'].strip(), 'model': entry['model'].strip(),
             'status': entry['status'],
-            'inch': round(math.hypot(lying['width'], lying['height']) / float(values['DISPLAY_DPI']), 1),
+            # DISPLAY_INCH where the board draws at another density than its glass has (the 3.5-inch CYD).
+            'inch': round(float(values['DISPLAY_INCH']) if 'DISPLAY_INCH' in values
+                          else math.hypot(lying['width'], lying['height']) / float(values['DISPLAY_DPI']), 1),
             # A controller can use a driver's protocol under another platform name (ST7121 on st7123).
             'touch': values.get('TOUCH_CONTROLLER', touch[1].split('_')[0].upper() if touch else '').strip('"'),
             'calibrate': any(path.name == 'resistive-touch.yaml' for path in chain),

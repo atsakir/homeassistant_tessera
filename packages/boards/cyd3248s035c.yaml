@@ -32,10 +32,15 @@ substitutions:
   # a 4 MB board's slot, which is close to full (looks/shared/digits.yaml).
   BEDSIDE_OWN_DIGITS: "0"
 
-  # The glass: the panel's own pixels and its density, 577 diagonal pixels over 3.5 inches.
+  # The glass: the panel's own pixels, and the density it is drawn at. The glass itself has 165 dpi (577 diagonal pixels
+  # over 3.5 inches, DISPLAY_INCH), but at that density every font of the compact look is about 15 % larger and the
+  # fonts alone take 42 KB more, which put the firmware at 97.6 % of a 4 MB board's update slot (over 97 % never ships,
+  # docs/RELEASING.md). Drawn at the Hosyond 4.0's 146 dpi it takes 95.4 %, and the firmware, the editor and the preview
+  # all draw it as the Hosyond. Letters, keys and touch margins come out about 12 % smaller in millimetres.
   PANEL_W: "320"
   PANEL_H: "480"
-  DISPLAY_DPI: "164.825"
+  DISPLAY_DPI: "146.000"
+  DISPLAY_INCH: "3.5"
   # The LVGL angle that lays this panel out lying down (480 x 320). Standing up is a quarter further.
   ROTATION_LANDSCAPE: "90"
   # The tile grid: columns and rows of cells lying down, and standing up. The 3.5-inch glass is 74 x 49 mm lying down,
@@ -44,11 +49,6 @@ substitutions:
   GRID_ROWS: "3"
   GRID_COLS_PORTRAIT: "1"
   GRID_ROWS_PORTRAIT: "4"
-  # The compact look drawn at the Hosyond 4.0's pixel sizes (146 dpi over the look's 143) instead of this glass's own
-  # 165 dpi. At 165 dpi every font is about 15 % larger and the fonts alone take 42 KB more, which put the firmware
-  # at 97.6 % of a 4 MB board's update slot (over 97 % never ships, docs/RELEASING.md). Letters and keys come out
-  # about 12 % smaller in millimetres than the look intends, and than on the CYD and the Hosyond.
-  LOOK_SCALE: "1.021"
   # LVGL's draw buffer as a share of the screen. No PSRAM: 8 % of 320 x 480 is 24 KB of the chip's own memory, as on
   # the Hosyond 4.0, until a heap reading with a full layout says there is room for more.
   LVGL_BUFFER_SIZE: "8%"

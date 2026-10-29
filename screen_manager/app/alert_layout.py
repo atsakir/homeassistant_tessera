@@ -30,13 +30,11 @@ def font_line(size):
     return ((FONT_LINE_UNITS * scale + 0x8000) >> 16) + 32 >> 6
 
 
-def lines(display_dpi, look, look_scale=None):
+def lines(display_dpi, look):
     """(title line, subtitle line) of a screen of this density and look: the look's font sizes scaled the way the look
-    scales them (at least 8 px, rounded half up like Jinja's round), and the line height of each. `look_scale` is a
-    board's own LOOK_SCALE where its file states one (the 3.5-inch CYD), in place of the density over the look's."""
+    scales them (at least 8 px, rounded half up like Jinja's round), and the line height of each."""
     reference, title, words = LOOK_FONTS.get(look, LOOK_FONTS['standard'])
-    scale = look_scale if look_scale is not None else display_dpi / reference
-    size = lambda base: max(8, int(base * scale + 0.5))  # noqa: E731
+    size = lambda base: max(8, int(base * display_dpi / reference + 0.5))  # noqa: E731
     return font_line(size(title)), font_line(size(words))
 
 

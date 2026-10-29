@@ -28,7 +28,7 @@ PLACEHOLDER = re.compile(r'\$\{([A-Z_][A-Z0-9_]*)\}')
 # Defined by the entry files (the fonts' place) or by ESP Screen Manager's screen YAML.
 FROM_ENTRY = {'FONT_DIR'}
 # Read by the tools rather than by the YAML: tools/generate_board_shapes.py hands them to the add-on (boards.json).
-READ_BY_TOOLS = {'CAMERA_FULL_W', 'CAMERA_FULL_H'}
+READ_BY_TOOLS = {'CAMERA_FULL_W', 'CAMERA_FULL_H', 'DISPLAY_INCH'}
 # Boards whose I2C bus keeps a name of its own instead of touch_bus (docs/PROFILES.md, "What an override may rely on").
 OWN_BUS_NAME = {'tab5'}
 # A block of a board file this long that another board file carries word for word is behaviour, not hardware.
