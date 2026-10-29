@@ -1,4 +1,4 @@
-## Unreleased
+## 0.4.91 (firmware 0.58.0)
 
 - **A new board, experimental: the CYD 3.5-inch ESP32-3248S035C.** The capacitive 3.5-inch CYD (ST7796 display,
   GT911 touch, an ESP32 with 4 MB flash) can be chosen in New screen. It builds like the other boards but has not been
