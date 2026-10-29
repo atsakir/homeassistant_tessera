@@ -60,11 +60,11 @@ class Channel(unittest.TestCase):
 
     def test_the_slug_says_which_url_the_app_came_from(self):
         # The Supervisor's hash (supervisor/store/utils.py): the first eight of sha1 of the URL as added, lower case.
-        url = 'https://github.com/MaxGramser/homeassistant_espscreen'
-        self.assertEqual(hashlib.sha1(url.lower().encode()).hexdigest()[:8], 'ec8ae0ed')
-        self.assertEqual(hashlib.sha1((url + '#dev').lower().encode()).hexdigest()[:8], 'fa6a7b50')
-        self.assertEqual(channel_of('ec8ae0ed_esp_screen_manager'), 'main')
-        self.assertEqual(channel_of('fa6a7b50_esp_screen_manager'), 'dev')
+        url = 'https://github.com/atsakir/homeassistant_tessera'
+        self.assertEqual(hashlib.sha1(url.lower().encode()).hexdigest()[:8], '1cf1fcae')
+        self.assertEqual(hashlib.sha1((url + '#dev').lower().encode()).hexdigest()[:8], '9a65ed66')
+        self.assertEqual(channel_of('1cf1fcae_esp_screen_manager'), 'main')
+        self.assertEqual(channel_of('9a65ed66_esp_screen_manager'), 'dev')
         for slug in ('local_esp_screen_manager', '1234abcd_esp_screen_manager', 'esp_screen_manager', '', None):
             with self.subTest(slug):
                 self.assertIsNone(channel_of(slug))

@@ -1,0 +1,146 @@
+############################################################
+# ESP Screens - CYD 3.5-inch (Sunton ESP32-3248S035C), EXPERIMENTAL.
+# ST7796 320x480 display over SPI and GT911 capacitive touch over I2C, an ESP32 with 4MB flash and no PSRAM.
+#
+# The same family as the CYD and the Hosyond 4.0: an ESP32 driving an ST7796 over SPI, with the backlight on GPIO27
+# and an RGB LED. Its glass is capacitive (features/capacitive-touch.yaml: pixels, no calibration), and the touch is
+# on an I2C bus of its own. The pins come from a working ESPHome configuration of this board. docs/PROFILES.md says
+# how the files of a screen fit together, docs/ADDING_A_BOARD.md how a board is added.
+#
+# Two entry files include this: checkout/cyd3248s035c.yaml (a build on this computer)
+# and packages/cyd3248s035c.yaml (the package a screen builds from over GitHub).
+############################################################
+packages:
+  # How every board's firmware is built (ESP-IDF, as ESPHome recommends it).
+  build: !include ../hardware/esp-idf.yaml
+  # Wide update slots for 4 MB of flash, and the way a screen that is out there gets them.
+  flash: !include ../hardware/flash-4mb.yaml
+  # Every size of the compact look, scaled to DISPLAY_DPI below. The standard look's fonts do not fit a 4 MB board.
+  look: !include ../looks/compact.yaml
+  touch: !include ../features/capacitive-touch.yaml
+  backlight: !include ../features/backlight.yaml
+  self_test: !include ../features/self-test.yaml
+  # The light on the RGB LED on the board (the outputs are below).
+  led: !include ../features/rgb-led.yaml
+
+substitutions:
+  # The key of this board file; the firmware reports it so ESP Screens knows what board a screen is.
+  BOARD_ID: "cyd3248s035c"
+  DEVICE_NAME: "cyd3248s035c-new"
+  DEVICE_FRIENDLY_NAME: "My CYD"
+  # The bedside clock draws with the display step this board has anyway: its own digits, a page tall, cost about 40 KB of
+  # a 4 MB board's slot, which is close to full (looks/shared/digits.yaml).
+  BEDSIDE_OWN_DIGITS: "0"
+
+  # The glass: the panel's own pixels and its density, 577 diagonal pixels over 3.5 inches.
+  PANEL_W: "320"
+  PANEL_H: "480"
+  DISPLAY_DPI: "164.825"
+  # The LVGL angle that lays this panel out lying down (480 x 320). Standing up is a quarter further.
+  ROTATION_LANDSCAPE: "90"
+  # The tile grid: columns and rows of cells lying down, and standing up. The 3.5-inch glass is 74 x 49 mm lying down,
+  # the Hosyond 4.0's grid in the same compact look.
+  GRID_COLS: "2"
+  GRID_ROWS: "3"
+  GRID_COLS_PORTRAIT: "1"
+  GRID_ROWS_PORTRAIT: "4"
+  # The compact look drawn at the Hosyond 4.0's pixel sizes (146 dpi over the look's 143) instead of this glass's own
+  # 165 dpi. At 165 dpi every font is about 15 % larger and the fonts alone take 42 KB more, which put the firmware
+  # at 97.6 % of a 4 MB board's update slot (over 97 % never ships, docs/RELEASING.md). Letters and keys come out
+  # about 12 % smaller in millimetres than the look intends, and than on the CYD and the Hosyond.
+  LOOK_SCALE: "1.021"
+  # LVGL's draw buffer as a share of the screen. No PSRAM: 8 % of 320 x 480 is 24 KB of the chip's own memory, as on
+  # the Hosyond 4.0, until a heap reading with a full layout says there is room for more.
+  LVGL_BUFFER_SIZE: "8%"
+
+  # TOUCH_SWAP_XY/MIRROR_X/MIRROR_Y stay the shared defaults (none): the GT911 reports the panel's own 320 x 480
+  # pixels, and LVGL turns the touch with the picture. The working configuration this board comes from drove the
+  # display turned (swap_xy) and turned the touch to match (swap_xy, mirror_y), which in the panel's own pixels is no
+  # turn at all. Not yet tried on the glass: if a tap lands mirrored, this is the place.
+  # Hardware a screen's own YAML may change (docs/EASY_SETUP.md, "Hardware-specific YAML overrides").
+  DISPLAY_MODEL: "ST7796"                       # ESPHome's mipi_spi model of the display controller
+  DISPLAY_DATA_RATE: "40MHz"                    # the display's SPI clock, as the working configuration ran it
+  DISPLAY_INVERT_COLORS: "false"
+  BACKLIGHT_FREQUENCY: "1000Hz"                 # the backlight's PWM, ESPHome's ledc default (as on the CYD, GitHub #42)
+
+# ============================================================
+# No need to edit below this line.
+# ============================================================
+
+esp32:
+  board: esp32dev
+  framework:
+    advanced:
+      # ESPHome recommends this itself in the boot log: about 40 KB more IRAM and a smaller binary, as on the CYD.
+      sram1_as_iram: true
+  variant: esp32
+
+# The display's SPI bus; the touch panel is on I2C (touch_bus below).
+spi:
+  - id: lcd
+    clk_pin: GPIO14
+    mosi_pin: GPIO13
+    miso_pin: GPIO12
+
+# The GT911's bus.
+i2c:
+  id: touch_bus
+  sda: GPIO33
+  scl: GPIO32
+  scan: true
+
+output:
+  # The backlight, lit at a high level.
+  - platform: ledc
+    pin: GPIO27
+    id: gpio_backlight_pwm
+    frequency: ${BACKLIGHT_FREQUENCY}
+
+  # The RGB LED on the board: common anode, lit at a low level. Green and blue are GPIO17 and GPIO16 on this board,
+  # the other way round from the Hosyond 4.0, as the working configuration found them.
+  - platform: ledc
+    id: output_red
+    pin: GPIO22
+    inverted: true
+  - platform: ledc
+    id: output_green
+    pin: GPIO17
+    inverted: true
+  - platform: ledc
+    id: output_blue
+    pin: GPIO16
+    inverted: true
+
+# GT911 on I2C, polled at 50 Hz; its interrupt (GPIO21) stays unused, as in the working configuration.
+touchscreen:
+  - platform: gt911
+    id: ts_touch
+    i2c_id: touch_bus
+    display: my_display
+    reset_pin: GPIO25
+    update_interval: 20ms
+    # The GT911 reports the panel's own pixels. Without this range ESPHome reads it from the chip's own configuration,
+    # and some panels ship a generic one there, which squeezes every touch towards a corner (GitHub #78).
+    calibration:
+      x_min: 0
+      x_max: 320
+      y_min: 0
+      y_max: 480
+
+display:
+  - platform: mipi_spi
+    id: my_display
+    spi_id: lcd
+    model: ${DISPLAY_MODEL}
+    data_rate: ${DISPLAY_DATA_RATE}
+    cs_pin: 15
+    dc_pin: 2
+    # BGR, ESPHome's default for this model, which the working configuration names.
+    color_order: bgr
+    invert_colors: ${DISPLAY_INVERT_COLORS}
+    update_interval: never
+    auto_clear_enabled: false
+    # Native panel dimensions (portrait); LVGL turns the picture (ROTATION_LANDSCAPE), never a display transform.
+    dimensions:
+      width: 320
+      height: 480

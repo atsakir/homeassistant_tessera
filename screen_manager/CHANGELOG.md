@@ -1,3 +1,11 @@
+## Unreleased
+
+- **A new board, experimental: the CYD 3.5-inch ESP32-3248S035C.** The capacitive 3.5-inch CYD (ST7796 display,
+  GT911 touch, an ESP32 with 4 MB flash) can be chosen in New screen. It builds like the other boards but has not been
+  tried on the glass yet ([details](../docs/CYD3248S035C.md)).
+- **This app comes from the atsakir/homeassistant_tessera fork.** Screens build their firmware from this repository,
+  and the Docker image is `ghcr.io/atsakir/homeassistant_tessera` ([docs/DOCKER.md](../docs/DOCKER.md)).
+
 ## 0.4.90 (firmware 0.57.1 for waveshare43, waveshare5)
 
 - **The Waveshare 4.3-inch and 5-inch update again with ESPHome 2026.10.** ESPHome 2026.10.0 checks more closely

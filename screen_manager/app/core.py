@@ -98,7 +98,7 @@ FULL_PAGE_MIN_FIRMWARE = (0, 2, 62)
 # Twenty tiles from firmware 0.2.7, ten before.
 TWENTY_TILES_MIN_FIRMWARE = (0, 2, 7)
 FIRST_MAX_TILES = 10
-REPO = 'https://github.com/MaxGramser/homeassistant_espscreen'
+REPO = 'https://github.com/atsakir/homeassistant_tessera'
 # The branch a screen's YAML builds its board package from. Which boards there are is boards.json's (BOARD_KEYS).
 REF = 'main'
 # The app's channel (docs/RELEASING.md, "Testing dev"): the branch of this repository the app was added from. The
@@ -107,7 +107,7 @@ REF = 'main'
 # another app, with data of its own, and its screens build from dev. Any other hash (a local copy, a fork, another
 # spelling of the URL) and no Supervisor at all have no channel: new screens build from main, existing ones keep the
 # `ref:` they have.
-CHANNELS = {'ec8ae0ed': 'main', 'fa6a7b50': 'dev'}
+CHANNELS = {'1cf1fcae': 'main', '9a65ed66': 'dev'}
 CHANNEL = None
 
 def channel_of(slug):

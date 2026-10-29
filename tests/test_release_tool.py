@@ -83,8 +83,8 @@ class TheChangelog(unittest.TestCase):
 
 class TheIssues(unittest.TestCase):
     def test_the_issues_a_section_names(self):
-        notes = ('- **A fix** ([#169](https://github.com/MaxGramser/homeassistant_espscreen/issues/169)). Also #170 and '
-                 'again #169, a pull request https://github.com/MaxGramser/homeassistant_espscreen/pull/151, not '
+        notes = ('- **A fix** ([#169](https://github.com/atsakir/homeassistant_tessera/issues/169)). Also #170 and '
+                 'again #169, a pull request https://github.com/atsakir/homeassistant_tessera/pull/151, not '
                  'a colour like &#35;1 or a heading anchor docs/PAGES.md#updating, nor another repository '
                  'https://github.com/esphome/esphome/issues/9999.')
         self.assertEqual(release.issues_in(notes), [169, 170, 151])
@@ -172,7 +172,7 @@ class TheCandidate(unittest.TestCase):
                 self.assertIn(f'GITHUB_REF: "{release.CANDIDATE}"', text)
                 self.assertIn('ref: ${GITHUB_REF}', text)
         cyd, _ = release.pointed_at((ROOT / 'packages/cyd.yaml').read_text(), release.CANDIDATE)
-        self.assertIn('homeassistant_espscreen/${GITHUB_REF}/fonts', cyd)
+        self.assertIn('homeassistant_tessera/${GITHUB_REF}/fonts', cyd)
 
     def test_nothing_else_in_the_packages_fetches_from_main(self):
         """The candidate only rewrites the published entries: any other package that named main would build main's."""

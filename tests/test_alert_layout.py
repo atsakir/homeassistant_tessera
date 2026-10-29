@@ -117,7 +117,8 @@ int main() {{
         for board in profiles.BOARDS:
             values = profiles.board_values(board)
             if 'alert' in shapes[board]:
-                self.assertEqual(alert_layout.lines(float(values['DISPLAY_DPI']), values['LOOK']),
+                own = float(values['LOOK_SCALE']) if 'LOOK_SCALE' in profiles.substitutions_of(profiles.BOARDS[board]) else None
+                self.assertEqual(alert_layout.lines(float(values['DISPLAY_DPI']), values['LOOK'], own),
                                  (shapes[board]['alert']['title_line'], shapes[board]['alert']['line']), board)
 
     def test_the_two_boards_each_look_was_drawn_on_keep_their_card(self):

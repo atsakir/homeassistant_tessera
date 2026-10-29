@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FMaxGramser%2Fhomeassistant_espscreen"><img src="https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg" alt="Add the Tessera repository to your Home Assistant"></a>
+  <a href="https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fatsakir%2Fhomeassistant_tessera"><img src="https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg" alt="Add the Tessera repository to your Home Assistant"></a>
 </p>
 
 <p align="center"><sub>Tessera is not in the standard App store. This button adds its repository to your Home Assistant. After that, Tessera Screen Manager is in the store like any other app.</sub></p>
@@ -300,7 +300,7 @@ beside the pages, without a new build: the 10.1-inch Guition holds up to forty t
   <img src="docs/images/guition-camera.png" width="32%" alt="A camera tile tapped: the front door camera full screen, with the round back key and the camera's name at the top">
   <img src="docs/images/guition-alert-camera.png" width="32%" alt="The same camera in an alert: its picture across the top of the card, with the card's rounded corners">
 </p>
-<p align="center"><sub>Cameras are tiles too, not only part of an alert: any camera or snapshot in Home Assistant (a doorbell's last ring, for example) goes on a screen like any other tile. Tap it for the picture full screen, refreshed every four seconds, or let the tile itself show its live picture (Display → Live picture, every 5 to 30 s) over the whole tile, on every size up to a full page, filled or whole, with or without its name; an alert can carry the same picture. Every screen but the CYD, the Waveshare 3.5-inch and the Hosyond 4-inch, which have no memory for pictures (<a href="https://tessera-maxgramser.on-forge.com/docs/cameras">how it works</a>).</sub></p>
+<p align="center"><sub>Cameras are tiles too, not only part of an alert: any camera or snapshot in Home Assistant (a doorbell's last ring, for example) goes on a screen like any other tile. Tap it for the picture full screen, refreshed every four seconds, or let the tile itself show its live picture (Display → Live picture, every 5 to 30 s) over the whole tile, on every size up to a full page, filled or whole, with or without its name; an alert can carry the same picture. Every screen but the CYDs, the Waveshare 3.5-inch and the Hosyond 4-inch, which have no memory for pictures (<a href="https://tessera-maxgramser.on-forge.com/docs/cameras">how it works</a>).</sub></p>
 <p align="center">
   <img src="docs/images/cyd-home.png" width="32%" alt="CYD 2.8-inch screen: the weather forecast, a pasta timer, the coffee machine in orange, the kitchen lamp and the power usage as a large value">
   <img src="docs/images/cyd-page-2.png" width="32%" alt="Second CYD page: the Sonos volume, Sam at home, the Movie night scene in lilac and an energy graph">
@@ -424,6 +424,7 @@ while it keeps your country's clock and numbers.
 | [Waveshare ESP32-S3-Touch-LCD-4B](https://tessera-maxgramser.on-forge.com/screens/waveshare4b), 4 inch (experimental) | 480 × 480, 2 × 3 tiles | ST7701S RGB / capacitive GT911; dimmable backlight, hardware acceptance pending ([details](docs/WAVESHARE4B.md)) |
 | [Waveshare ESP32-S3-Touch-LCD-3.5](https://tessera-maxgramser.on-forge.com/screens/waveshare35) (new) | 480 × 320, 2 × 2 tiles | ST7796 SPI / capacitive FT6336; dimmable backlight, no camera pictures ([details](docs/WAVESHARE35.md)) |
 | [Hosyond ESP32-32E](https://tessera-maxgramser.on-forge.com/screens/hosyond40), 4 inch (experimental) | 480 × 320, 2 × 3 tiles | ST7796 SPI / resistive XPT2046; dimmable backlight, no camera pictures, hardware acceptance pending ([details](docs/HOSYOND40.md)) |
+| CYD ESP32-3248S035C, 3.5 inch (experimental) | 480 × 320, 2 × 3 tiles | ST7796 SPI / capacitive GT911; dimmable backlight, no camera pictures, hardware acceptance pending ([details](docs/CYD3248S035C.md)) |
 | [Guition JC3248W535](docs/JC3248W535.md), 3.5 inch (new) | 480 × 320, 2 × 2 tiles | AXS15231B QSPI / capacitive AXS15231B; dimmable backlight, camera pictures |
 | [Guition JC8012P4A1](https://tessera-maxgramser.on-forge.com/screens/jc8012p4a1), 10.1 inch | 1280 × 800, 5 × 5 tiles | MIPI-DSI JD9365 / capacitive GSL3680, ESP32-P4 (new) ([details](docs/JC8012P4A1.md)) |
 | Guition JC8012P4A1 V2, 10.1 inch (experimental) | 1280 × 800, 5 × 5 tiles | MIPI-DSI JD9365 / capacitive GSL3680, early ESP32-P4 with the newer LCD; hardware acceptance pending ([details](docs/JC8012P4A1.md)) |
@@ -489,16 +490,16 @@ are generated per new screen and stay in that device's own profile.
 
 ### Step by step
 
-For Home Assistant Container (Docker) without the App store, follow [Install with Docker](https://tessera-maxgramser.on-forge.com/docs/docker).
+For Home Assistant Container (Docker) without the App store, follow [Install with Docker](docs/DOCKER.md).
 
 For Home Assistant OS with Apps/Add-ons on **aarch64 or amd64**:
 
 1. Tessera is not in the standard App store, so add its repository first. One click does it:
 
-   [![Add the Tessera repository to your Home Assistant](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FMaxGramser%2Fhomeassistant_espscreen)
+   [![Add the Tessera repository to your Home Assistant](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fatsakir%2Fhomeassistant_tessera)
 
    Or add it by hand: open the App store, choose **Repositories** in the menu in the top right, and add
-   `https://github.com/MaxGramser/homeassistant_espscreen`.
+   `https://github.com/atsakir/homeassistant_tessera`.
 2. Install **Tessera Screen Manager** from the store, start the app, and open **Tessera** in the sidebar.
    ESPHome Device Builder is optional: the ESPHome CLI is already in this app.
 3. Connect the screen with a USB data cable to the **Home Assistant machine**

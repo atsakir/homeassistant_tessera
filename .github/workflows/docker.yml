@@ -2,6 +2,7 @@
 # the app ships (config.yaml `arch`). A push publishes it to the GitHub Container Registry, so a Docker install
 # (docs/DOCKER.md) can pull it instead of building from the Git context. A pull request and a fork only build it:
 # a fork's token can't write this repository's packages, and a fork's own pushes shouldn't fill its owner's registry.
+# atsakir/homeassistant_tessera is the exception: it publishes its own image, ghcr.io/atsakir/homeassistant_tessera.
 name: Docker image
 
 on:
@@ -22,7 +23,7 @@ concurrency:
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}
-  PUSH: ${{ github.event_name != 'pull_request' && !github.event.repository.fork }}
+  PUSH: ${{ github.event_name != 'pull_request' && (!github.event.repository.fork || github.repository == 'atsakir/homeassistant_tessera') }}
 
 jobs:
   image:

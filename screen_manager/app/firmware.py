@@ -357,7 +357,7 @@ class Firmware:
         written only when this one name is the one thing that changed. True when it changed."""
         profile = self.profile(name)
         raw = profile.read_bytes().decode('utf-8')
-        if 'homeassistant_espscreen' not in raw and 'packages/core.yaml' not in raw:
+        if REPO.rsplit('/', 1)[-1] not in raw and 'homeassistant_espscreen' not in raw and 'packages/core.yaml' not in raw:
             return False
         newline = '\r\n' if '\r\n' in raw else '\n'
         text = raw.replace('\r\n', '\n')
