@@ -464,7 +464,8 @@ def to_mm(pixels, dpi):
 
 # The types whose tile draws a control smaller than 7 mm on some board, today. `floor` is the smallest side in mm of
 # drawn glass the audit measured on any board (rounded down to a tenth); `cause` the code that sizes it, and what grows
-# its touch area where something does.
+# its touch area where something does. The 3.5-inch CYD (drawn at 140 dpi, the densest a 4 MB board's flash allows it)
+# sets most of these: a look pixel there is the smallest of any board.
 _TOGGLE = ('the panel\'s switch, 48x26 px of the compact look and 76x40 of the standard (runtime_tiles.h:5047 panel_metrics, '
            'toggle_h in look pixels, not ui::touch_min()); its touch area grows by m.ext only (runtime_tiles.h:5084 panel_key)')
 _KEY = ('the panel\'s keys, 34 px high in the compact look and 46 in the standard (runtime_tiles.h:5047 panel_metrics, key_h in look '
@@ -472,15 +473,15 @@ _KEY = ('the panel\'s keys, 34 px high in the compact look and 46 in the standar
 _STEPPER = ('the round - and + keys inside the stepper\'s pill, its height less two insets (runtime_tiles.h:5144 stepper_keys); the '
             'click area grows by the inset only')
 TOUCH_FLOORS = {
-    **{domain: {'floor': 4.6, 'cause': _TOGGLE} for domain in ('automation', 'fan', 'input_boolean', 'light', 'remote', 'switch')},
-    **{domain: {'floor': 6.0, 'cause': _KEY} for domain in ('button', 'input_button', 'input_select', 'scene', 'script', 'select',
+    **{domain: {'floor': 4.5, 'cause': _TOGGLE} for domain in ('automation', 'fan', 'input_boolean', 'light', 'remote', 'switch')},
+    **{domain: {'floor': 5.9, 'cause': _KEY} for domain in ('button', 'input_button', 'input_select', 'scene', 'script', 'select',
                                                              'timer', 'vacuum')},
-    **{domain: {'floor': 5.3, 'cause': _STEPPER} for domain in ('input_number', 'number')},
-    'cover': {'floor': 5.3, 'cause': 'the position slider, slider_h of the look (runtime_tiles.h:5047 panel_metrics), touch area '
+    **{domain: {'floor': 5.2, 'cause': _STEPPER} for domain in ('input_number', 'number')},
+    'cover': {'floor': 5.2, 'cause': 'the position slider, slider_h of the look (runtime_tiles.h:5047 panel_metrics), touch area '
                                      'grown by m.ext + 2 (runtime_tiles.h:5241); its keys are the panel\'s (panel_metrics)'},
-    'humidifier': {'floor': 4.6, 'cause': 'its on/off switch is the shared toggle (the automation, fan and light entry), its '
+    'humidifier': {'floor': 4.5, 'cause': 'its on/off switch is the shared toggle (the automation, fan and light entry), its '
                                           'mode bar and -/+ keys the thermostat\'s (the climate entry)'},
-    'climate': {'floor': 4.9, 'cause': 'the mode bar\'s segments and the -/+ keys take the panel\'s key_h as their finger '
+    'climate': {'floor': 4.8, 'cause': 'the mode bar\'s segments and the -/+ keys take the panel\'s key_h as their finger '
                                        '(runtime_tiles.h:5041 bar_metrics, cm.touch=m.key_h), not ui::touch_min()'},
     'media_player': {'floor': 2.0, 'cause': 'the full card\'s volume slider is drawn as a 12 px track (media_card.h) and grows '
                                             'by ui::px(8) a side (runtime_tiles.h:3501 media_slider): about 5 mm of glass to hit'},
