@@ -1,7 +1,7 @@
 # Screens with 4 MB of flash: more room, and what to do if you flash yourself
 
 This page is for the CYD (ESP32-2432S028, with an ILI9341, ST7789V or ILI9342 display), the Hosyond 4-inch and the 3.5-inch CYD
-ESP32-3248S035C. They have 4 MB of flash. Since app 0.4.56 and firmware 0.33.1 these boards get a partition table of their own, and a
+ESP32-3248S035C and ESP32-3248S035R. They have 4 MB of flash. Since app 0.4.56 and firmware 0.33.1 these boards get a partition table of their own, and a
 screen you already have moves to it during a normal update. If you only ever update from the Tessera panel in Home
 Assistant, there is nothing to do: read the first two sections and skip the rest. If you build or flash your screens
 yourself, with ESPHome Device Builder, the ESPHome command line or a USB cable, read on from "If you flash yourself".

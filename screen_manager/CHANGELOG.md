@@ -1,3 +1,10 @@
+## Unreleased
+
+- **A new board, experimental: the CYD 3.5-inch ESP32-3248S035R.** The resistive twin of the ESP32-3248S035C (ST7796
+  display, XPT2046 touch, an ESP32 with 4 MB flash) can be chosen in New screen. Its touch calibrates on the first
+  start, as on the CYD. It builds like the other boards but has not been tried on the glass yet
+  ([details](../docs/CYD3248S035R.md)).
+
 ## 0.4.91 (firmware 0.58.0)
 
 - **A new board, experimental: the CYD 3.5-inch ESP32-3248S035C.** The capacitive 3.5-inch CYD (ST7796 display,

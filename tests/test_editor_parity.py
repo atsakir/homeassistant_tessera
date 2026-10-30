@@ -318,10 +318,11 @@ console.log(JSON.stringify(DATA.shapes.map((shape: any) => ({
 
     # A card over the whole page takes its keys by the height of a cell (layout_panel: panel_metrics_full(w.base_height
     # > 80)), and the editor knows no cell heights: its mockup takes them by the look (modeBar "full"), which is the same
-    # answer on every board but the Hosyond and the 3.5-inch CYD, whose compact look has cells of 88 and 105
+    # answer on every board but the Hosyond and the two 3.5-inch CYDs, whose compact look has cells of 88 and 105
     # pixels. Known, and kept here so a fix shows up: the editor needs the board's cell height for it (the top bar's band
     # and the page bar), which boards.json does not carry yet.
-    KNOWN = {'hosyond40-landscape', 'hosyond40-portrait', 'cyd3248s035c-landscape', 'cyd3248s035c-portrait'}
+    KNOWN = {'hosyond40-landscape', 'hosyond40-portrait', 'cyd3248s035c-landscape', 'cyd3248s035c-portrait',
+             'cyd3248s035r-landscape', 'cyd3248s035r-portrait'}
 
     def test_a_full_cards_finger_follows_its_cell(self):
         for (key, _, shape), ts in zip(SHAPES, self.ts):

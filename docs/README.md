@@ -38,6 +38,7 @@
 - [WAVESHARE7B.md](WAVESHARE7B.md): the Waveshare ESP32-S3-Touch-LCD-7B.
 - [HOSYOND40.md](HOSYOND40.md): the Hosyond 4-inch ESP32-32E.
 - [CYD3248S035C.md](CYD3248S035C.md): the CYD 3.5-inch ESP32-3248S035C, capacitive.
+- [CYD3248S035R.md](CYD3248S035R.md): the CYD 3.5-inch ESP32-3248S035R, resistive.
 - [SUNTON8048S070.md](SUNTON8048S070.md): the Sunton ESP32-8048S070, 7 inch.
 
 ## Recipes for changing the code

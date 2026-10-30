@@ -1,0 +1,114 @@
+# ESP Screens - CYD 3.5-inch (Sunton ESP32-3248S035R), EXPERIMENTAL.
+# ST7796 320x480 display and XPT2046 resistive touch on one SPI bus, an ESP32 with 4MB flash and no PSRAM.
+#
+# The resistive twin of the ESP32-3248S035C (packages/boards/cyd3248s035c.yaml): the same glass, drawn the same way,
+# with the touch of the CYD and the Hosyond 4.0 (features/resistive-touch.yaml: the calibration wizard, a page swipe by
+# LVGL's gesture). The pins come from a working ESPHome configuration of this board. docs/PROFILES.md says how the
+# files of a screen fit together, docs/ADDING_A_BOARD.md how a board is added.
+#
+# Two entry files include this: checkout/cyd3248s035r.yaml (a build on this computer)
+# and packages/cyd3248s035r.yaml (the package a screen builds from over GitHub).
+packages:
+  # How every board's firmware is built (ESP-IDF, as ESPHome recommends it).
+  build: !include ../hardware/esp-idf.yaml
+  # Wide update slots for 4 MB of flash, and the way a screen that is out there gets them.
+  flash: !include ../hardware/flash-4mb.yaml
+  # Every size of the compact look, scaled to DISPLAY_DPI below. The standard look's fonts do not fit a 4 MB board.
+  look: !include ../looks/compact.yaml
+  # The ST7796 glass, the same on the capacitive and the resistive board.
+  display: !include ../hardware/cyd-3248s035.yaml
+  touch: !include ../features/resistive-touch.yaml
+  # The XPT2046 on the display's SPI bus, chip select GPIO33.
+  touch_panel: !include ../hardware/xpt2046-spi.yaml
+  backlight: !include ../features/backlight.yaml
+  self_test: !include ../features/self-test.yaml
+  # The light on the RGB LED on the board (the outputs are below).
+  led: !include ../features/rgb-led.yaml
+
+substitutions:
+  # The key of this board file; the firmware reports it so ESP Screens knows what board a screen is.
+  BOARD_ID: "cyd3248s035r"
+  DEVICE_NAME: "cyd3248s035r-new"
+  DEVICE_FRIENDLY_NAME: "My CYD"
+  # The bedside clock draws with the display step this board has anyway: its own digits, a page tall, cost about 40 KB of
+  # a 4 MB board's slot, which is close to full (looks/shared/digits.yaml).
+  BEDSIDE_OWN_DIGITS: "0"
+
+  # The glass: the panel's own pixels, and the density it is drawn at, as on the ESP32-3248S035C: the glass has 165 dpi
+  # (577 diagonal pixels over 3.5 inches, DISPLAY_INCH), but the compact look's fonts at that density do not fit a 4 MB
+  # board's update slot (packages/boards/cyd3248s035c.yaml says by how much). Letters, keys and touch margins come out
+  # about 15 % smaller in millimetres than the look's own sizes.
+  PANEL_W: "320"
+  PANEL_H: "480"
+  DISPLAY_DPI: "140.000"
+  DISPLAY_INCH: "3.5"
+  # The LVGL angle that lays this panel out lying down (480 x 320). Standing up is a quarter further.
+  ROTATION_LANDSCAPE: "90"
+  # The tile grid: columns and rows of cells lying down, and standing up. The 3.5-inch glass is 74 x 49 mm lying down,
+  # the Hosyond 4.0's grid in the same compact look.
+  GRID_COLS: "2"
+  GRID_ROWS: "3"
+  GRID_COLS_PORTRAIT: "1"
+  GRID_ROWS_PORTRAIT: "4"
+  # LVGL's draw buffer as a share of the screen. No PSRAM: 8 % of 320 x 480 is 24 KB of the chip's own memory, as on
+  # the Hosyond 4.0, until a heap reading with a full layout says there is room for more.
+  LVGL_BUFFER_SIZE: "8%"
+
+  # The touch panel's axes against the panel's own 320 x 480 pixels. The working configuration this board comes from
+  # drove the display turned (swap_xy, without the mirror_x ESPHome's ST7796 model has by default) and the touch with
+  # swap_xy and mirror_x, which in the panel's own pixels is both axes mirrored and none swapped. The calibration
+  # wizard measures the rest on the first start (docs/CALIBRATING.md). Not yet tried on the glass.
+  TOUCH_MIRROR_X: "true"
+  TOUCH_MIRROR_Y: "true"
+  # Hardware a screen's own YAML may change (docs/EASY_SETUP.md, "Hardware-specific YAML overrides").
+  DISPLAY_MODEL: "ST7796"                       # ESPHome's mipi_spi model of the display controller
+  DISPLAY_DATA_RATE: "40MHz"                    # the display's SPI clock, as on the Hosyond 4.0 (the working configuration ran 80MHz)
+  DISPLAY_INVERT_COLORS: "false"
+  BACKLIGHT_FREQUENCY: "1000Hz"                 # the backlight's PWM, ESPHome's ledc default (as on the CYD, GitHub #42)
+  # The XPT2046's raw range before a calibration, as the working configuration measured it (its x and y are this
+  # panel's y and x, swapped); the wizard measures this panel's own on the first start (docs/CALIBRATING.md).
+  TOUCH_CAL_X_MIN: "282"
+  TOUCH_CAL_X_MAX: "3835"
+  TOUCH_CAL_Y_MIN: "208"
+  TOUCH_CAL_Y_MAX: "3823"
+
+# ============================================================
+# No need to edit below this line.
+# ============================================================
+
+esp32:
+  board: esp32dev
+  framework:
+    advanced:
+      # ESPHome recommends this itself in the boot log: about 40 KB more IRAM and a smaller binary, as on the CYD.
+      sram1_as_iram: true
+  variant: esp32
+
+# One SPI bus, shared by the display (CS GPIO15) and the touch controller (CS GPIO33).
+spi:
+  - id: lcd
+    clk_pin: GPIO14
+    mosi_pin: GPIO13
+    miso_pin: GPIO12
+
+output:
+  # The backlight, lit at a high level.
+  - platform: ledc
+    pin: GPIO27
+    id: gpio_backlight_pwm
+    frequency: ${BACKLIGHT_FREQUENCY}
+
+  # The RGB LED on the board: common anode, lit at a low level. Red is GPIO4 on this board (GPIO22 on the
+  # ESP32-3248S035C), green and blue GPIO17 and GPIO16, as the working configuration found them.
+  - platform: ledc
+    id: output_red
+    pin: GPIO4
+    inverted: true
+  - platform: ledc
+    id: output_green
+    pin: GPIO17
+    inverted: true
+  - platform: ledc
+    id: output_blue
+    pin: GPIO16
+    inverted: true

@@ -1,0 +1,20 @@
+# ESP Screens - the display of the CYD 3.5-inch, for both of its board files: the ESP32-3248S035C (capacitive) and the
+# ESP32-3248S035R (resistive) have the same ST7796 glass on the same SPI bus (`lcd`, in the board file), CS GPIO15 and
+# DC GPIO2. The board file states DISPLAY_MODEL, DISPLAY_DATA_RATE and DISPLAY_INVERT_COLORS.
+display:
+  - platform: mipi_spi
+    id: my_display
+    spi_id: lcd
+    model: ${DISPLAY_MODEL}
+    data_rate: ${DISPLAY_DATA_RATE}
+    cs_pin: 15
+    dc_pin: 2
+    # BGR, ESPHome's default for this model, which the working configurations of both boards name or take.
+    color_order: bgr
+    invert_colors: ${DISPLAY_INVERT_COLORS}
+    update_interval: never
+    auto_clear_enabled: false
+    # Native panel dimensions (portrait); LVGL turns the picture (ROTATION_LANDSCAPE), never a display transform.
+    dimensions:
+      width: 320
+      height: 480

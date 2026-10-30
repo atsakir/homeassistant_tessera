@@ -17,6 +17,8 @@ packages:
   flash: !include ../hardware/flash-4mb.yaml
   # Every size of the compact look, scaled to DISPLAY_DPI below. The standard look's fonts do not fit a 4 MB board.
   look: !include ../looks/compact.yaml
+  # The ST7796 glass, the same on the capacitive and the resistive board.
+  display: !include ../hardware/cyd-3248s035.yaml
   touch: !include ../features/capacitive-touch.yaml
   backlight: !include ../features/backlight.yaml
   self_test: !include ../features/self-test.yaml
@@ -127,21 +129,3 @@ touchscreen:
       x_max: 320
       y_min: 0
       y_max: 480
-
-display:
-  - platform: mipi_spi
-    id: my_display
-    spi_id: lcd
-    model: ${DISPLAY_MODEL}
-    data_rate: ${DISPLAY_DATA_RATE}
-    cs_pin: 15
-    dc_pin: 2
-    # BGR, ESPHome's default for this model, which the working configuration names.
-    color_order: bgr
-    invert_colors: ${DISPLAY_INVERT_COLORS}
-    update_interval: never
-    auto_clear_enabled: false
-    # Native panel dimensions (portrait); LVGL turns the picture (ROTATION_LANDSCAPE), never a display transform.
-    dimensions:
-      width: 320
-      height: 480

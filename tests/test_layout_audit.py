@@ -464,8 +464,8 @@ def to_mm(pixels, dpi):
 
 # The types whose tile draws a control smaller than 7 mm on some board, today. `floor` is the smallest side in mm of
 # drawn glass the audit measured on any board (rounded down to a tenth); `cause` the code that sizes it, and what grows
-# its touch area where something does. The 3.5-inch CYD (drawn at 140 dpi, the densest a 4 MB board's flash allows it)
-# sets most of these: a look pixel there is the smallest of any board.
+# its touch area where something does. The 3.5-inch CYDs (drawn at 140 dpi, the densest a 4 MB board's flash allows them)
+# set most of these: a look pixel there is the smallest of any board.
 _TOGGLE = ('the panel\'s switch, 48x26 px of the compact look and 76x40 of the standard (runtime_tiles.h:5047 panel_metrics, '
            'toggle_h in look pixels, not ui::touch_min()); its touch area grows by m.ext only (runtime_tiles.h:5084 panel_key)')
 _KEY = ('the panel\'s keys, 34 px high in the compact look and 46 in the standard (runtime_tiles.h:5047 panel_metrics, key_h in look '

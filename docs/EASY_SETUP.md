@@ -26,6 +26,7 @@ ESPHome Device Builder is optional:
 | Waveshare, 3.5 inch (new) | ESP32-S3-Touch-LCD-3.5, 480×320, ST7796 and FT6336 ([details](WAVESHARE35.md)) |
 | Hosyond, 4 inch (experimental) | ESP32-32E 4.0 inch (E32R40T), 480×320, ST7796 and XPT2046 ([details](HOSYOND40.md)) |
 | CYD, 3.5 inch (experimental) | ESP32-3248S035C (the capacitive variant), 480×320, ST7796 and GT911 ([details](CYD3248S035C.md)) |
+| CYD, 3.5 inch resistive (experimental) | ESP32-3248S035R (the resistive variant), 480×320, ST7796 and XPT2046 ([details](CYD3248S035R.md)) |
 | Guition, 3.5 inch (new) | JC3248W535, 480×320, AXS15231B QSPI and AXS15231B touch ([details](JC3248W535.md)) |
 | Guition, 10.1 inch (new) | JC8012P4A1, 1280×800, JD9365 MIPI-DSI and GSL3680, ESP32-P4 ([details](JC8012P4A1.md)) |
 | Guition, 10.1 inch V2 (experimental) | JC8012P4A1 V2, 1280×800, JD9365 MIPI-DSI and GSL3680, early ESP32-P4 with the newer LCD ([details](JC8012P4A1.md)) |
@@ -159,7 +160,7 @@ and survives OTA updates. Use the HA device button **Calibrate touch** to
 measure again later. For a panel that stays off, or for a measurement report over
 USB, see [CALIBRATING.md](CALIBRATING.md).
 
-**Hosyond 4 inch:** its resistive touch calibrates on the first start, the same way as the CYD.
+**Hosyond 4 inch and the resistive 3.5-inch CYD (ESP32-3248S035R):** their resistive touch calibrates on the first start, the same way as the CYD.
 
 **Every other board:** its capacitive touch reports pixels and its mapping is baked into the board profile; there's no ADC calibration.
 
@@ -211,7 +212,7 @@ title of its own still shows that. It has domain filters with
 colored icons, a room filter, and **Hide placed**. You can add one tile for every cell of the screen's pages,
 48 on a CYD, a 4-inch Guition or the experimental Waveshare 4B and Waveshare P4 (firmware 0.2.62+; see below for older firmware).
 The screen preview shows their placement on the screen's own grid, lying down: two columns of three on a CYD, a 4-inch Guition,
-the Waveshare 4B, the Waveshare P4, the Hosyond 4-inch or the 3.5-inch CYD, two by two on the Waveshare 3.5-inch and the 3.5-inch Guition, three by three on the Waveshare 4.3-inch and 5-inch,
+the Waveshare 4B, the Waveshare P4, the Hosyond 4-inch or either 3.5-inch CYD, two by two on the Waveshare 3.5-inch and the 3.5-inch Guition, three by three on the Waveshare 4.3-inch and 5-inch,
 four by four on the [experimental Waveshare 7-inch](WAVESHARE7.md), the [experimental Waveshare 7B](WAVESHARE7B.md), the [experimental Sunton 7-inch](SUNTON8048S070.md) and the 7-inch Guition, and five by five on the
 10.1-inch Guition, either way up (firmware 0.18.0; five by four before, and a saved layout moves on by itself); up to
 eight pages and 64 tiles, or more on a board with PSRAM ([TILE_MEMORY.md](TILE_MEMORY.md)). That grid is where a screen
@@ -303,15 +304,15 @@ on 16 pages on an ESP32-P4 board, as many as the screen's memory takes. The edit
 count, and a tile that no longer fits can't be added ([TILE_MEMORY.md](TILE_MEMORY.md)). Firmware 0.2.7 to
 0.2.61 keeps the limit of twenty (four pages) and older firmware ten, until you
 update. In the **Screen settings** tab, **Swipe between pages** turns on swiping.
-On a board with capacitive touch (every board but the 2.8-inch CYD and the Hosyond, firmware 0.2.24+), you then swipe inward from the left or right
+On a board with capacitive touch (every board but the 2.8-inch CYD, the resistive 3.5-inch CYD and the Hosyond, firmware 0.2.24+), you then swipe inward from the left or right
 edge, like the back-swipe gesture on a phone; slow or fast, and a swipe starting in the
 middle of the screen does nothing, so tapping and dragging tiles never
-accidentally changes pages. On the 2.8-inch CYD and the Hosyond, it stays a quick swipe across the screen. Sliders
+accidentally changes pages. On the 2.8-inch CYD, the resistive 3.5-inch CYD and the Hosyond, it stays a quick swipe across the screen. Sliders
 only control their value; detail menus and standby don't change pages. Swiping up from the
 bottom edge goes back to the Home page (firmware 0.2.100+; page 1 unless you chose another page as Home, [PAGES.md](PAGES.md)).
 With firmware 0.28.0+ it works wherever you are, like the home gesture on a phone: an open card, a camera or the
 settings page closes on the way. Swiping down from the top edge opens the screen's settings page. A swipe that starts on
-a slider stays that slider's. The 2.8-inch CYD and the Hosyond take both from a band along the top and bottom edge as well, and
+a slider stays that slider's. The 2.8-inch CYD, the resistive 3.5-inch CYD and the Hosyond take both from a band along the top and bottom edge as well, and
 a quick swipe up anywhere over the tiles still goes home there. Every swipe that is
 taken lights the edge it came from for a quarter of a second, so the screen answers the gesture
 before the new page is drawn.

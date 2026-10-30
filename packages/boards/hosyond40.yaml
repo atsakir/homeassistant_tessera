@@ -15,6 +15,8 @@ packages:
   # Every size of the compact look, scaled to DISPLAY_DPI below: this glass has the CYD's density, so they are its own.
   look: !include ../looks/compact.yaml
   touch: !include ../features/resistive-touch.yaml
+  # The XPT2046 on the display's SPI bus, chip select GPIO33.
+  touch_panel: !include ../hardware/xpt2046-spi.yaml
   backlight: !include ../features/backlight.yaml
   self_test: !include ../features/self-test.yaml
   # The light on the RGB LED on the board (the outputs are below).
@@ -99,16 +101,6 @@ output:
     pin: GPIO17
     inverted: true
 
-
-# XPT2046 on the display's bus. Polled at 50 Hz like the CYD; its interrupt (GPIO36) stays unused, as there.
-touchscreen:
-  - platform: xpt2046
-    id: ts_touch
-    spi_id: lcd
-    cs_pin: 33
-    update_interval: 20ms
-    # The CYD's threshold: a light brush of the film is not a touch.
-    threshold: 800
 
 display:
   - platform: mipi_spi

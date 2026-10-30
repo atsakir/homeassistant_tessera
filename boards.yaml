@@ -179,3 +179,9 @@ cyd3248s035c:
   name: CYD
   model: ESP32-3248S035C
   status: experimental
+
+cyd3248s035r:
+  file: cyd3248s035r.yaml
+  name: CYD
+  model: ESP32-3248S035R
+  status: experimental

@@ -1,0 +1,13 @@
+# ESP Screens - an XPT2046 resistive touch controller on the display's SPI bus (`lcd`), chip select GPIO33: the wiring
+# of the Hosyond 4.0 and the CYD 3.5-inch ESP32-3248S035R, for their board files to include beside
+# features/resistive-touch.yaml.
+#
+# Polled at 50 Hz like the CYD; its interrupt (GPIO36) stays unused, as there.
+touchscreen:
+  - platform: xpt2046
+    id: ts_touch
+    spi_id: lcd
+    cs_pin: 33
+    update_interval: 20ms
+    # The CYD's threshold: a light brush of the film is not a touch.
+    threshold: 800
