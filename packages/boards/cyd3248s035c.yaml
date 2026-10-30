@@ -28,6 +28,9 @@ packages:
 substitutions:
   # The key of this board file; the firmware reports it so ESP Screens knows what board a screen is.
   BOARD_ID: "cyd3248s035c"
+  # This board's own firmware revision (docs/BOARD_RELEASES.md), app 0.4.92 in the CHANGELOG.
+  # The next shared release takes this line out again.
+  SCREEN_FIRMWARE_VERSION: "0.58.1"
   DEVICE_NAME: "cyd3248s035c-new"
   DEVICE_FRIENDLY_NAME: "My CYD"
   # The bedside clock draws with the display step this board has anyway: its own digits, a page tall, cost about 40 KB of

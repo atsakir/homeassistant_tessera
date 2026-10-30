@@ -1,9 +1,12 @@
-## Unreleased
+## 0.4.92 (firmware 0.58.1 for cyd3248s035c, hosyond40)
 
 - **A new board, experimental: the CYD 3.5-inch ESP32-3248S035R.** The resistive twin of the ESP32-3248S035C (ST7796
   display, XPT2046 touch, an ESP32 with 4 MB flash) can be chosen in New screen. Its touch calibrates on the first
   start, as on the CYD. It builds like the other boards but has not been tried on the glass yet
   ([details](../docs/CYD3248S035R.md)).
+- **Firmware 0.58.1 for the CYD 3.5-inch ESP32-3248S035C and the Hosyond 4-inch** changes nothing on those screens:
+  the display the two 3.5-inch boards share and the touch controller the resistive one shares with the Hosyond moved
+  into files of their own, which builds the same firmware.
 
 ## 0.4.91 (firmware 0.58.0)
 
